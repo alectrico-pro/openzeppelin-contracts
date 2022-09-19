@@ -1,0 +1,35 @@
+
+services:
+
+  app: &app
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      target: contracts
+    environment:
+      dapk: "8dc139be3c85d64e2420f93eaf7a90d547f2b6fd3ebd0a72d4dce30a1bf4f145"
+      ETHERSCAN_API_KEY: "EDBKYENP4HQJ3B5QAKJXUMDK245521HN7J"
+
+  hello:
+    <<: *app
+    command: "npx hardhat --verbose"
+
+  compile: 
+    <<: *app
+    command: "npx hardhat compile --force --verbose"
+
+  test:
+    <<: *app
+    command: "npx hardhat test --verbose"
+
+  console:
+    <<: *app
+    command: "npx hardhat console --verbose"
+
+  node:
+    <<: *app
+    ports:
+      - "8545:8545"
+    command: "npx hardhat node"
+
