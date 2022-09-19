@@ -28,3 +28,10 @@ build:
 
 up:
 	docker compose up
+
+script: 
+	docker compose up script
+
+clean:
+	docker compose up clean
+	

@@ -10,6 +10,8 @@ services:
     environment:
       dapk: "8dc139be3c85d64e2420f93eaf7a90d547f2b6fd3ebd0a72d4dce30a1bf4f145"
       ETHERSCAN_API_KEY: "EDBKYENP4HQJ3B5QAKJXUMDK245521HN7J"
+    volumes:
+      - ./contract/artifacts:/usr/app/contract/artifacts
 
   hello:
     <<: *app
@@ -33,3 +35,18 @@ services:
       - "8545:8545"
     command: "npx hardhat node"
 
+  clean:
+    <<: *app
+    ports:
+      - "8545:8545"
+    command: "npx hardhat clean"
+
+
+
+  #llama a los scritps que están en package.json
+  script:
+    <<: *app
+    command:
+      - npm
+      - run
+      - test
